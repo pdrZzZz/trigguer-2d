@@ -30,9 +30,15 @@ public class MoveControl : MonoBehaviour
     #region novo sistema de input
     public void SetMove(InputAction.CallbackContext value)
     {
-        _move = value.ReadValue<Vector2>(); // novo sistema de input
+        _move = value.ReadValue<Vector2>(); // novo sistema de input (movimentação)
     }
     #endregion
+
+    void Jump()
+    {
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
+        _rb.AddForce(new Vector2(0, 500));
+    }
 
 
     #region checagem
@@ -40,6 +46,7 @@ public class MoveControl : MonoBehaviour
     {
         if (collision.CompareTag("ground"))
         {
+            Jump();
             _checkGround = true;
         }
     }
